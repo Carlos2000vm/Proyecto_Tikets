@@ -1,45 +1,41 @@
-// app.js
 const express = require('express');
-const mysql = require('mysql2/promise');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const router = express.Router();
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+const connection = require('./db'); // Asegúrate de que este archivo esté bien configurado
 
-// Conectar a la base de datos
-async function connectToDatabase() {
-    return mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME,
-    });
-}
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Ruta de inicio de sesión
-router.post('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
+    // Aquí puedes agregar tu lógica para autenticar al usuario
     try {
-        const connection = await connectToDatabase();
+        // Ejemplo de consulta a la base de datos
+        const query = 'SELECT * FROM users WHERE email = ?';
+        const [rows] = await connection.execute(query, [email]);
 
-        // Busca al usuario en la base de datos
-        const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
-        const user = rows[0];
-
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Credenciales incorrectas' });
+        if (rows.length > 0) {
+            // Aquí puedes agregar la lógica de comparación de contraseñas
+            // Por ejemplo usando bcrypt para comparar las contraseñas
+            res.status(200).send('Inicio de sesión exitoso');
+        } else {
+            res.status(401).send('Credenciales incorrectas');
         }
-
-        // Crea un token JWT
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        // Devuelve el token y un estado de éxito
-        res.json({ token, message: 'Inicio de sesión exitoso' });
     } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-        res.status(500).json({ message: 'Error al iniciar sesión' });
+        console.error('Error al autenticar:', error);
+        res.status(500).send('Error del servidor');
     }
 });
 
-module.exports = router;
-
+// Iniciar servidor
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
