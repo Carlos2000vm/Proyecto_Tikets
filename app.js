@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
-                window.location.href = '/index.html'; // Redirigir a index.html
+                window.location.href = '/public/index.html'; // Redirigir a index.html
             } else {
                 return response.json().then(errorData => {
                     console.error('Error en la respuesta:', errorData); // Log de error

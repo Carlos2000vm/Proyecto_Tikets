@@ -40,7 +40,7 @@ app.post('/login', (req, res) => {
             // Comparar la contraseña proporcionada con la almacenada
             if (password === user.password) { // Comparación directa
                 // Inicio de sesión exitoso: redirige a index.html
-                return res.json({ redirectUrl: '/index.html' }); // Enviar URL de redirección
+                return res.json({ redirectUrl: '/public/index.html' }); // Enviar URL de redirección
             } else {
                 // Credenciales incorrectas
                 return res.status(401).json({ error: 'Credenciales incorrectas' });
