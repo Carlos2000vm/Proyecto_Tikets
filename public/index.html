@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Tickets de Eventos</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* Estilos del menú */
+        .menu {
+            background-color: #2c3e50;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .menu li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .menu li a:hover {
+            color: #3498db;
+        }
+
+        /* Estilos del contenido principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .eventos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 2rem;
+        }
+
+        .evento {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: calc(33.333% - 2rem);
+            transition: transform 0.3s ease;
+        }
+
+        .evento:hover {
+            transform: translateY(-5px);
+        }
+
+        .evento img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .evento-info {
+            padding: 1rem;
+        }
+
+        .evento h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .evento p {
+            margin-bottom: 1rem;
+        }
+
+        .btn-comprar {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-comprar:hover {
+            background-color: #2980b9;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .evento {
+                width: calc(50% - 2rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .evento {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="menu">
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#eventos">Eventos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Tienda de Tickets de Eventos</h1>
+        <div class="eventos" id="eventos">
+            <!-- Los eventos se generarán dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <script src="../app.js"></script>
+</body>
+</html>
