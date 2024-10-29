@@ -1,7 +1,13 @@
-// testConnection.js
-const connection = require('./db'); // Asegúrate de que db.js esté en la misma carpeta
+const mysql = require('mysql2/promise');
+require('dotenv').config();
 
-// Intenta obtener una conexión a la base de datos
+const connection = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+});
+
 connection.getConnection()
     .then(() => {
         console.log('Conexión exitosa a la base de datos');
