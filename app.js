@@ -91,5 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// Función para comprar un ticket y redirigir a compra.html
+function comprarTicket(id) {
+    // Redirigir a la página de compra con el ID del evento en la URL
+    window.location.href = `compra.html?eventoId=${id}`;
+}
+
+
+
 // Obtener los eventos al cargar la página
 document.addEventListener('DOMContentLoaded', obtenerEventos);
